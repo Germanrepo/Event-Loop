@@ -32,15 +32,18 @@ const getUserInfo = (id) => {
             const post = JSON.parse(body)
             console.log(post)
             for (let p of post) {
-                request({ uri: `${url}/comments?postId=${id}` }, (err, res, body) => {
+                request({ uri: `${url}/comments?postId=${p.id}&_limit=2` }, (err, res, body) => {
                     if (err) console.error(err)
 
-                    const comment = JSON.parse(body)[p.id-1]
+                    const comment = JSON.parse(body)
                     console.log(comment)
+                    const commentUsers = comment.map(c => {
+                        return `<p><span>${c.email}</span>: ${c.body}</p>`
+                    }).join('')
                     container.innerHTML += `
                     <div class="post">
                         <h3>${p.title}</h3>
-                        <p>${comment.body}</p>
+                        ${commentUsers}
                     </div>
                     `
 
