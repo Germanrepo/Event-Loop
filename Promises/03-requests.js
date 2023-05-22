@@ -20,12 +20,18 @@ block.addEventListener('click', () => {
             return user.id
         })
         .then(userId => getPosts(userId))
-        .then(posts => {
-            const post = posts[0]
-            return Promise.all([getPosts(post.userId), getComments(posts[0].id), getComments(posts[1].id), getComments(posts[2].id)])
+        .then(post => {
+            for (let p of post) {
+                console.log(p.title)
+            }
+            return Promise.all([getComments(post[0].id), getComments(post[1].id), getComments(post[2].id)])
         })
-        .then(a => {
-            console.log(a)
+        .then(comments => {
+            for (let comts of comments) {
+                for (let comm of comts) {
+                    console.log(`${comm.email}: ${comm.body}`)
+                }
+            }
         })
         .catch(err => console.error(err))
 })
