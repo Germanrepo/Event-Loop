@@ -1,10 +1,9 @@
-const tresSegundos = () => {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            resolve(3)
-        }, 3000)
-    })
-}
+const tresSegundos = () => new Promise((resolve, reject) => {
+    setTimeout(() => {
+        resolve(3)
+    }, 3000)
+})
+
 const seisSegundos = () => new Promise((resolve, reject) => {
     setTimeout(() => {
         resolve(6)
@@ -34,6 +33,5 @@ tresSegundos()
     })
     .then(res => {
         console.log(res)
-        
     })
     .then(() => console.timeEnd())
